@@ -8,8 +8,8 @@ export const revalidate = 0;
 
 export async function GET() {
   try {
-    // Read CSV from parent directory
-    const csvPath = path.join(process.cwd(), '..', 'SW Report for AI.csv');
+    // Read CSV from dashboard directory
+    const csvPath = path.join(process.cwd(), 'SW Report for AI.csv');
 
     if (!fs.existsSync(csvPath)) {
       return NextResponse.json(
