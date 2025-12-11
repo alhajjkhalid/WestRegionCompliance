@@ -48,26 +48,37 @@ A Next.js dashboard application for visualizing and analyzing compliance data fr
 
 ## Deploying to Vercel
 
-### Important: Root Directory Configuration
+### CRITICAL: Root Directory Configuration Required
 
-Since the dashboard is in a subfolder, you need to configure Vercel to use the `dashboard` directory as the root:
+Since the dashboard is in a subfolder, you **MUST** configure Vercel to use the `dashboard` directory as the root. Without this, the deployment will fail.
 
-1. Go to your Vercel project settings
-2. Navigate to **Settings** > **General**
-3. Find the **Root Directory** setting
-4. Set it to: `dashboard`
-5. Click **Save**
+### Method 1: Configure During Import (Recommended)
 
-### Deployment Steps
+1. Go to [Vercel](https://vercel.com) and click **Add New Project**
+2. Import your GitHub repository: `alhajjkhalid/SW-Compliance`
+3. **IMPORTANT:** Before clicking Deploy, click **Edit** next to "Root Directory"
+4. Select `dashboard` from the dropdown or type it manually
+5. Vercel will automatically detect Next.js settings
+6. Click **Deploy**
 
-1. Import your GitHub repository to Vercel
-2. Configure the root directory as described above
-3. Deploy
+### Method 2: Update Existing Project
 
-Alternatively, you can configure this during the initial import:
-- When importing the project, click on **Edit** next to Root Directory
-- Enter `dashboard`
-- Click **Continue** and deploy
+If you already created the project:
+
+1. Go to your Vercel project dashboard
+2. Click **Settings**
+3. Navigate to **General** settings
+4. Scroll down to find **Root Directory**
+5. Click **Edit**
+6. Enter: `dashboard`
+7. Click **Save**
+8. Go to **Deployments** tab
+9. Click the three dots menu on the latest deployment
+10. Click **Redeploy**
+
+### Verifying Deployment
+
+After deployment, your dashboard should be accessible at your Vercel URL. The API endpoint at `/api/data` should return the CSV data.
 
 ## Updating Data
 
