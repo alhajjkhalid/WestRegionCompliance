@@ -30,7 +30,7 @@ export default function Filters({
   return (
     <div className="flex flex-wrap gap-4 mb-6">
       <div className="flex flex-col gap-1">
-        <label className="text-sm text-slate-400 font-medium">City</label>
+        <label className="text-sm text-slate-600 dark:text-slate-400 font-medium">City</label>
         <select
           value={selectedCity}
           onChange={(e) => handleCityChange(e.target.value)}
@@ -46,7 +46,7 @@ export default function Filters({
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="text-sm text-slate-400 font-medium">Manager</label>
+        <label className="text-sm text-slate-600 dark:text-slate-400 font-medium">Manager</label>
         <select
           value={selectedManager}
           onChange={(e) => onManagerChange(e.target.value)}
