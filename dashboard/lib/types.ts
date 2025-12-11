@@ -13,6 +13,7 @@ export interface MetricsRow {
   passedRate: string;
   failedRate: string;
   skippedRate: string;
+  sponsorshipRate: string;
 }
 
 export interface DoDRow {
@@ -30,6 +31,7 @@ export interface DoDRow {
   passedRate: string;
   failedRate: string;
   skippedRate: string;
+  sponsorshipRate: string;
 }
 
 export interface DashboardData {
@@ -51,6 +53,7 @@ export interface AggregatedMetrics {
   passedRate: number;
   failedRate: number;
   skippedRate: number;
+  sponsorshipRate: number;
 }
 
 export interface CategoryData {

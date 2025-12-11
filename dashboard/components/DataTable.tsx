@@ -46,8 +46,12 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               Driver Card
             </th>
             {/* Face ID Group */}
-            <th colSpan={4} className="bg-purple-900/50 text-center px-3 py-3 text-sm font-bold text-purple-200 border-b-2 border-purple-400">
+            <th colSpan={4} className="bg-purple-900/50 text-center px-3 py-3 text-sm font-bold text-purple-200 border-b-2 border-purple-400 border-r-2 border-r-slate-500">
               Face ID Recognition
+            </th>
+            {/* Sponsorship Group */}
+            <th className="bg-yellow-900/50 text-center px-3 py-3 text-sm font-bold text-yellow-200 border-b-2 border-yellow-400">
+              Sponsorship
             </th>
           </tr>
           {/* Sub Header Row */}
@@ -68,7 +72,9 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
             <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Triggers</th>
             <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[70px]">Pass</th>
             <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[70px]">Fail</th>
-            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[70px]">Skip</th>
+            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center border-r-2 border-r-slate-500 min-w-[70px]">Skip</th>
+            {/* Sponsorship sub-header */}
+            <th className="px-3 py-2 text-xs font-semibold text-yellow-300 text-center min-w-[80px]">Rate</th>
           </tr>
         </thead>
         <tbody>
@@ -121,8 +127,12 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               <td className="px-3 py-3 text-center">
                 <span className="text-red-400 font-semibold">{row.failedRate}</span>
               </td>
-              <td className="px-3 py-3 text-center">
+              <td className="px-3 py-3 text-center border-r-2 border-r-slate-600">
                 <span className="text-yellow-400 font-semibold">{row.skippedRate}</span>
+              </td>
+              {/* Sponsorship value */}
+              <td className="px-3 py-3 text-center">
+                <span className="text-yellow-400 font-semibold">{row.sponsorshipRate}</span>
               </td>
             </tr>
           ))}
@@ -156,8 +166,12 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               Driver Card
             </th>
             {/* Face ID Group */}
-            <th colSpan={4} className="bg-purple-900/50 text-center px-3 py-3 text-sm font-bold text-purple-200 border-b-2 border-purple-400">
+            <th colSpan={4} className="bg-purple-900/50 text-center px-3 py-3 text-sm font-bold text-purple-200 border-b-2 border-purple-400 border-r-2 border-r-slate-500">
               Face ID Recognition
+            </th>
+            {/* Sponsorship Group */}
+            <th className="bg-yellow-900/50 text-center px-3 py-3 text-sm font-bold text-yellow-200 border-b-2 border-yellow-400">
+              Sponsorship
             </th>
           </tr>
           {/* Sub Header Row */}
@@ -178,7 +192,9 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
             <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Triggers</th>
             <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Pass</th>
             <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Fail</th>
-            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Skip</th>
+            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center border-r-2 border-r-slate-500 min-w-[80px]">Skip</th>
+            {/* Sponsorship sub-header */}
+            <th className="px-3 py-2 text-xs font-semibold text-yellow-300 text-center min-w-[80px]">Rate</th>
           </tr>
         </thead>
         <tbody>
@@ -227,8 +243,12 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               <td className="px-3 py-3 text-center">
                 <DodIndicator value={row.failedRate} inverse />
               </td>
-              <td className="px-3 py-3 text-center">
+              <td className="px-3 py-3 text-center border-r-2 border-r-slate-600">
                 <DodIndicator value={row.skippedRate} inverse />
+              </td>
+              {/* Sponsorship DoD value */}
+              <td className="px-3 py-3 text-center">
+                <DodIndicator value={row.sponsorshipRate} />
               </td>
             </tr>
           ))}

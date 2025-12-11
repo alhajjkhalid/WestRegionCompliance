@@ -191,6 +191,20 @@ export default function Dashboard() {
         },
       ],
     },
+    {
+      title: 'Sponsorship Rate',
+      icon: '🤝',
+      color: 'bg-yellow-600/20',
+      metrics: [
+        {
+          label: 'Sponsor Rate',
+          previousDay: `${prevAgg.sponsorshipRate.toFixed(2)}%`,
+          today: `${todayAgg.sponsorshipRate.toFixed(2)}%`,
+          dod: `${dodAgg.sponsorshipRate >= 0 ? '+' : ''}${dodAgg.sponsorshipRate.toFixed(2)}%`,
+          inverse: false,
+        },
+      ],
+    },
   ];
 
   return (

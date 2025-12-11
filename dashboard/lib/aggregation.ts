@@ -21,6 +21,7 @@ export function aggregateMetrics(rows: MetricsRow[]): AggregatedMetrics {
       passedRate: 0,
       failedRate: 0,
       skippedRate: 0,
+      sponsorshipRate: 0,
     };
   }
 
@@ -37,6 +38,7 @@ export function aggregateMetrics(rows: MetricsRow[]): AggregatedMetrics {
     passedRate: acc.passedRate + parsePercentToNumber(row.passedRate),
     failedRate: acc.failedRate + parsePercentToNumber(row.failedRate),
     skippedRate: acc.skippedRate + parsePercentToNumber(row.skippedRate),
+    sponsorshipRate: acc.sponsorshipRate + parsePercentToNumber(row.sponsorshipRate),
   }), {
     sequenceMore3: 0,
     sequenceMore9: 0,
@@ -49,6 +51,7 @@ export function aggregateMetrics(rows: MetricsRow[]): AggregatedMetrics {
     passedRate: 0,
     failedRate: 0,
     skippedRate: 0,
+    sponsorshipRate: 0,
   });
 
   // Average percentages
@@ -65,6 +68,7 @@ export function aggregateMetrics(rows: MetricsRow[]): AggregatedMetrics {
     passedRate: sums.passedRate / count,
     failedRate: sums.failedRate / count,
     skippedRate: sums.skippedRate / count,
+    sponsorshipRate: sums.sponsorshipRate / count,
   };
 }
 
@@ -82,6 +86,7 @@ export function aggregateDoDMetrics(rows: DoDRow[]): Record<string, number> {
       passedRate: 0,
       failedRate: 0,
       skippedRate: 0,
+      sponsorshipRate: 0,
     };
   }
 
@@ -97,6 +102,7 @@ export function aggregateDoDMetrics(rows: DoDRow[]): Record<string, number> {
     passedRate: acc.passedRate + parsePercentToNumber(row.passedRate),
     failedRate: acc.failedRate + parsePercentToNumber(row.failedRate),
     skippedRate: acc.skippedRate + parsePercentToNumber(row.skippedRate),
+    sponsorshipRate: acc.sponsorshipRate + parsePercentToNumber(row.sponsorshipRate),
   }), {
     sequenceMore3: 0,
     sequenceMore3Pct: 0,
@@ -109,6 +115,7 @@ export function aggregateDoDMetrics(rows: DoDRow[]): Record<string, number> {
     passedRate: 0,
     failedRate: 0,
     skippedRate: 0,
+    sponsorshipRate: 0,
   });
 
   const count = rows.length;
@@ -124,6 +131,7 @@ export function aggregateDoDMetrics(rows: DoDRow[]): Record<string, number> {
     passedRate: sums.passedRate / count,
     failedRate: sums.failedRate / count,
     skippedRate: sums.skippedRate / count,
+    sponsorshipRate: sums.sponsorshipRate / count,
   };
 }
 

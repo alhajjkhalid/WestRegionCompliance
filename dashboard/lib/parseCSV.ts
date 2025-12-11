@@ -33,30 +33,56 @@ function parseMetricsRow(row: string[]): MetricsRow | null {
     passedRate: parsePercentage(row[11]),
     failedRate: parsePercentage(row[12]),
     skippedRate: parsePercentage(row[13]),
+    sponsorshipRate: parsePercentage(row[14]),
   };
 }
 
-function parseDoDRow(row: string[]): DoDRow | null {
-  if (!row[0] || row[0].trim() === '' || row[0].includes('city_id')) {
-    return null;
+function calculatePercentageChange(previous: number, current: number): string {
+  if (previous === 0) {
+    if (current === 0) return '0.00%';
+    return '100.00%';
   }
+  const change = ((current - previous) / previous) * 100;
+  return change.toFixed(2) + '%';
+}
 
-  return {
-    cityId: row[0]?.trim() || '',
-    cityName: row[1]?.trim() || '',
-    manager: row[2]?.trim() || '',
-    sequenceMore3: row[3]?.trim() || '0.0%',
-    sequenceMore3Pct: row[4]?.trim() || '0.00%',
-    sequenceMore9: row[5]?.trim() || '0.0%',
-    cheatingCouriers: row[6]?.trim() || '0.0%',
-    activeDriverCard: row[7]?.trim() || '0.0%',
-    expiredDriverCard: row[8]?.trim() || '0.0%',
-    activeDriverCardPct: row[9]?.trim() || '0.00%',
-    totalTriggers: row[10]?.trim() || '0.0%',
-    passedRate: row[11]?.trim() || '0.00%',
-    failedRate: row[12]?.trim() || '0.00%',
-    skippedRate: row[13]?.trim() || '0.00%',
-  };
+function calculatePercentagePointChange(previousPct: string, currentPct: string): string {
+  const prev = parseFloat(previousPct.replace('%', '')) || 0;
+  const curr = parseFloat(currentPct.replace('%', '')) || 0;
+  const change = curr - prev;
+  return change.toFixed(2) + '%';
+}
+
+function calculateDayOverDay(previousDay: MetricsRow[], today: MetricsRow[]): DoDRow[] {
+  const dodRows: DoDRow[] = [];
+
+  today.forEach(todayRow => {
+    const previousRow = previousDay.find(
+      prev => prev.cityId === todayRow.cityId && prev.manager === todayRow.manager
+    );
+
+    if (previousRow) {
+      dodRows.push({
+        cityId: todayRow.cityId,
+        cityName: todayRow.cityName,
+        manager: todayRow.manager,
+        sequenceMore3: calculatePercentageChange(previousRow.sequenceMore3, todayRow.sequenceMore3),
+        sequenceMore3Pct: calculatePercentagePointChange(previousRow.sequenceMore3Pct, todayRow.sequenceMore3Pct),
+        sequenceMore9: calculatePercentageChange(previousRow.sequenceMore9, todayRow.sequenceMore9),
+        cheatingCouriers: calculatePercentageChange(previousRow.cheatingCouriers, todayRow.cheatingCouriers),
+        activeDriverCard: calculatePercentageChange(previousRow.activeDriverCard, todayRow.activeDriverCard),
+        expiredDriverCard: calculatePercentageChange(previousRow.expiredDriverCard, todayRow.expiredDriverCard),
+        activeDriverCardPct: calculatePercentagePointChange(previousRow.activeDriverCardPct, todayRow.activeDriverCardPct),
+        totalTriggers: calculatePercentageChange(previousRow.totalTriggers, todayRow.totalTriggers),
+        passedRate: calculatePercentagePointChange(previousRow.passedRate, todayRow.passedRate),
+        failedRate: calculatePercentagePointChange(previousRow.failedRate, todayRow.failedRate),
+        skippedRate: calculatePercentagePointChange(previousRow.skippedRate, todayRow.skippedRate),
+        sponsorshipRate: calculatePercentagePointChange(previousRow.sponsorshipRate, todayRow.sponsorshipRate),
+      });
+    }
+  });
+
+  return dodRows;
 }
 
 export function parseCSVData(csvContent: string): DashboardData {
@@ -94,7 +120,6 @@ export function parseCSVData(csvContent: string): DashboardData {
   // Parse each table
   const previousDay: MetricsRow[] = [];
   const today: MetricsRow[] = [];
-  const dayOverDay: DoDRow[] = [];
 
   // Table 1: Previous Day (after first header until second header)
   if (headerIndices.length >= 1) {
@@ -109,10 +134,10 @@ export function parseCSVData(csvContent: string): DashboardData {
     }
   }
 
-  // Table 2: Today (after second header until third header)
+  // Table 2: Today (after second header)
   if (headerIndices.length >= 2) {
     const startIdx = headerIndices[1] + 1;
-    const endIdx = headerIndices.length >= 3 ? headerIndices[2] : rows.length;
+    const endIdx = rows.length;
 
     for (let i = startIdx; i < endIdx; i++) {
       const parsed = parseMetricsRow(rows[i]);
@@ -122,17 +147,8 @@ export function parseCSVData(csvContent: string): DashboardData {
     }
   }
 
-  // Table 3: Day over Day (after third header)
-  if (headerIndices.length >= 3) {
-    const startIdx = headerIndices[2] + 1;
-
-    for (let i = startIdx; i < rows.length; i++) {
-      const parsed = parseDoDRow(rows[i]);
-      if (parsed) {
-        dayOverDay.push(parsed);
-      }
-    }
-  }
+  // Calculate Day over Day automatically
+  const dayOverDay = calculateDayOverDay(previousDay, today);
 
   return {
     previousDay,
