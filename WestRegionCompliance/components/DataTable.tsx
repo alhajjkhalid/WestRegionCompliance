@@ -177,26 +177,26 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
             </th>
           </tr>
           {/* Sub Header Row */}
-          <tr className="bg-slate-800">
-            <th className="sticky left-0 z-10 bg-slate-800"></th>
-            <th className="border-r-2 border-r-slate-500"></th>
+          <tr className="bg-slate-100 dark:bg-slate-800">
+            <th className="sticky left-0 z-10 bg-slate-100 dark:bg-slate-800"></th>
+            <th className="border-r-2 border-r-slate-400 dark:border-r-slate-500"></th>
             {/* Sequence sub-headers */}
-            <th className="px-3 py-2 text-xs font-semibold text-blue-300 text-center min-w-[80px]">&gt;3</th>
-            <th className="px-3 py-2 text-xs font-semibold text-blue-300 text-center min-w-[80px]">&gt;3 %</th>
-            <th className="px-3 py-2 text-xs font-semibold text-blue-300 text-center border-r-2 border-r-slate-500 min-w-[80px]">&gt;9</th>
+            <th className="px-3 py-2 text-xs font-semibold text-blue-700 dark:text-blue-300 text-center min-w-[80px]">&gt;3</th>
+            <th className="px-3 py-2 text-xs font-semibold text-blue-700 dark:text-blue-300 text-center min-w-[80px]">&gt;3 %</th>
+            <th className="px-3 py-2 text-xs font-semibold text-blue-700 dark:text-blue-300 text-center border-r-2 border-r-slate-400 dark:border-r-slate-500 min-w-[80px]">&gt;9</th>
             {/* Cheating sub-header */}
-            <th className="px-3 py-2 text-xs font-semibold text-red-300 text-center border-r-2 border-r-slate-500 min-w-[80px]">Count</th>
+            <th className="px-3 py-2 text-xs font-semibold text-red-700 dark:text-red-300 text-center border-r-2 border-r-slate-400 dark:border-r-slate-500 min-w-[80px]">Count</th>
             {/* Driver Card sub-headers */}
-            <th className="px-3 py-2 text-xs font-semibold text-green-300 text-center min-w-[80px]">Active</th>
-            <th className="px-3 py-2 text-xs font-semibold text-green-300 text-center min-w-[80px]">Expired</th>
-            <th className="px-3 py-2 text-xs font-semibold text-green-300 text-center border-r-2 border-r-slate-500 min-w-[80px]">Active %</th>
+            <th className="px-3 py-2 text-xs font-semibold text-green-700 dark:text-green-300 text-center min-w-[80px]">Active</th>
+            <th className="px-3 py-2 text-xs font-semibold text-green-700 dark:text-green-300 text-center min-w-[80px]">Expired</th>
+            <th className="px-3 py-2 text-xs font-semibold text-green-700 dark:text-green-300 text-center border-r-2 border-r-slate-400 dark:border-r-slate-500 min-w-[80px]">Active %</th>
             {/* Face ID sub-headers */}
-            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Triggers</th>
-            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Pass</th>
-            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center min-w-[80px]">Fail</th>
-            <th className="px-3 py-2 text-xs font-semibold text-purple-300 text-center border-r-2 border-r-slate-500 min-w-[80px]">Skip</th>
+            <th className="px-3 py-2 text-xs font-semibold text-purple-700 dark:text-purple-300 text-center min-w-[80px]">Triggers</th>
+            <th className="px-3 py-2 text-xs font-semibold text-purple-700 dark:text-purple-300 text-center min-w-[80px]">Pass</th>
+            <th className="px-3 py-2 text-xs font-semibold text-purple-700 dark:text-purple-300 text-center min-w-[80px]">Fail</th>
+            <th className="px-3 py-2 text-xs font-semibold text-purple-700 dark:text-purple-300 text-center border-r-2 border-r-slate-400 dark:border-r-slate-500 min-w-[80px]">Skip</th>
             {/* Sponsorship sub-header */}
-            <th className="px-3 py-2 text-xs font-semibold text-yellow-300 text-center min-w-[80px]">Rate</th>
+            <th className="px-3 py-2 text-xs font-semibold text-yellow-700 dark:text-yellow-300 text-center min-w-[80px]">Rate</th>
           </tr>
         </thead>
         <tbody>
@@ -205,10 +205,10 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               key={index}
               className={`${index % 2 === 0 ? 'bg-slate-50 dark:bg-slate-800/50' : 'bg-white dark:bg-slate-900/50'} hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors`}
             >
-              <td className={`sticky left-0 z-10 px-3 py-3 font-semibold text-slate-100 ${index % 2 === 0 ? 'bg-slate-800/95' : 'bg-slate-900/95'}`}>
+              <td className={`sticky left-0 z-10 px-3 py-3 font-semibold text-slate-900 dark:text-slate-100 ${index % 2 === 0 ? 'bg-slate-50 dark:bg-slate-800/95' : 'bg-white dark:bg-slate-900/95'}`}>
                 {row.cityName}
               </td>
-              <td className="px-3 py-3 text-slate-300 border-r-2 border-r-slate-600">
+              <td className="px-3 py-3 text-slate-700 dark:text-slate-300 border-r-2 border-r-slate-400 dark:border-r-slate-600">
                 {row.manager}
               </td>
               {/* Sequence Number DoD values */}
@@ -218,11 +218,11 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               <td className="px-3 py-3 text-center">
                 <DodIndicator value={row.sequenceMore3Pct} inverse />
               </td>
-              <td className="px-3 py-3 text-center border-r-2 border-r-slate-600">
+              <td className="px-3 py-3 text-center border-r-2 border-r-slate-400 dark:border-r-slate-600">
                 <DodIndicator value={row.sequenceMore9} inverse />
               </td>
               {/* Cheating DoD value */}
-              <td className="px-3 py-3 text-center border-r-2 border-r-slate-600">
+              <td className="px-3 py-3 text-center border-r-2 border-r-slate-400 dark:border-r-slate-600">
                 <DodIndicator value={row.cheatingCouriers} inverse />
               </td>
               {/* Driver Card DoD values */}
@@ -232,7 +232,7 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               <td className="px-3 py-3 text-center">
                 <DodIndicator value={row.expiredDriverCard} inverse />
               </td>
-              <td className="px-3 py-3 text-center border-r-2 border-r-slate-600">
+              <td className="px-3 py-3 text-center border-r-2 border-r-slate-400 dark:border-r-slate-600">
                 <DodIndicator value={row.activeDriverCardPct} />
               </td>
               {/* Face ID DoD values */}
@@ -245,7 +245,7 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               <td className="px-3 py-3 text-center">
                 <DodIndicator value={row.failedRate} inverse />
               </td>
-              <td className="px-3 py-3 text-center border-r-2 border-r-slate-600">
+              <td className="px-3 py-3 text-center border-r-2 border-r-slate-400 dark:border-r-slate-600">
                 <DodIndicator value={row.skippedRate} inverse />
               </td>
               {/* Sponsorship DoD value */}
