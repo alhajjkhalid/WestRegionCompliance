@@ -7,7 +7,6 @@ import { useTheme } from '@/lib/ThemeContext';
 import Filters from './Filters';
 import CategoryCard from './CategoryCard';
 import DataTable from './DataTable';
-import CityOverview from './CityOverview';
 
 export default function Dashboard() {
   const { theme, toggleTheme } = useTheme();
@@ -211,22 +210,22 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen p-6 bg-slate-900">
+    <div className="min-h-screen p-6">
       {/* Header */}
       <header className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-slate-100">
+            <h1 className="text-3xl font-bold">
               SW Region Compliance Dashboard
             </h1>
-            <p className="text-slate-400 mt-1">
+            <p className="text-slate-400 dark:text-slate-400 mt-1">
               Real-time compliance metrics for Southwest Region
             </p>
           </div>
           <div className="flex items-center gap-4">
             <button
               onClick={toggleTheme}
-              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors flex items-center gap-2"
+              className="px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-slate-100 rounded-lg transition-colors flex items-center gap-2"
               title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
               <span>{theme === 'dark' ? '☀️' : '🌙'}</span>
@@ -234,24 +233,19 @@ export default function Dashboard() {
             </button>
             <button
               onClick={fetchData}
-              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors flex items-center gap-2"
+              className="px-4 py-2 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-slate-100 rounded-lg transition-colors flex items-center gap-2"
             >
               <span>↻</span>
               <span>Refresh</span>
             </button>
             {lastUpdated && (
-              <span className="text-sm text-slate-400">
+              <span className="text-sm text-slate-600 dark:text-slate-400">
                 Last updated: {lastUpdated.toLocaleTimeString()}
               </span>
             )}
           </div>
         </div>
       </header>
-
-      {/* City Overview - shown when "all" is selected */}
-      {selectedCity === 'all' && selectedManager === 'all' && (
-        <CityOverview data={filteredToday} />
-      )}
 
       {/* Filters */}
       <Filters
