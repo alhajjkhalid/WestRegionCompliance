@@ -18,6 +18,20 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ title, icon, metrics, color }: CategoryCardProps) {
+  const isSponsorshipCard = title === 'Sponsorship Rate';
+
+  const getTodayValueColor = (value: string | number): string => {
+    if (!isSponsorshipCard) return '';
+
+    const stringValue = String(value);
+    const numericValue = parseFloat(stringValue.replace('%', ''));
+
+    if (numericValue > 90) {
+      return 'text-green-400';
+    }
+    return '';
+  };
+
   return (
     <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden card-hover">
       {/* Header */}
@@ -43,8 +57,12 @@ export default function CategoryCard({ title, icon, metrics, color }: CategoryCa
             {metrics.map((metric, index) => (
               <tr key={index} className="border-t border-slate-700/50">
                 <td className="py-2 text-slate-300">{metric.label}</td>
-                <td className="py-2 text-right text-slate-400">{metric.previousDay}</td>
-                <td className="py-2 text-right font-medium">{metric.today}</td>
+                <td className={`py-2 text-right ${isSponsorshipCard && parseFloat(String(metric.previousDay).replace('%', '')) > 90 ? 'text-green-400' : 'text-slate-400'}`}>
+                  {metric.previousDay}
+                </td>
+                <td className={`py-2 text-right font-medium ${getTodayValueColor(metric.today)}`}>
+                  {metric.today}
+                </td>
                 <td className="py-2 text-right">
                   <DodIndicator value={metric.dod} inverse={metric.inverse} />
                 </td>

@@ -132,7 +132,9 @@ export default function DataTable({ previousDay, today, dayOverDay }: DataTableP
               </td>
               {/* Sponsorship value */}
               <td className="px-3 py-3 text-center">
-                <span className="text-yellow-400 font-semibold">{row.sponsorshipRate}</span>
+                <span className={`font-semibold ${parseFloat(row.sponsorshipRate.replace('%', '')) > 90 ? 'text-green-400' : 'text-yellow-400'}`}>
+                  {row.sponsorshipRate}
+                </span>
               </td>
             </tr>
           ))}
