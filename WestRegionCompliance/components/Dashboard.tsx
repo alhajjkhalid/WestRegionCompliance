@@ -3,11 +3,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { DashboardData, MetricsRow, DoDRow, AggregatedMetrics } from '@/lib/types';
 import { aggregateMetrics, aggregateDoDMetrics, filterByCity, filterByManager, filterDoDByCity, filterDoDByManager } from '@/lib/aggregation';
+import { useTheme } from '@/lib/ThemeContext';
 import Filters from './Filters';
 import CategoryCard from './CategoryCard';
 import DataTable from './DataTable';
+import CityOverview from './CityOverview';
 
 export default function Dashboard() {
+  const { theme, toggleTheme } = useTheme();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -208,7 +211,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-6 bg-slate-900">
       {/* Header */}
       <header className="mb-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -221,6 +224,14 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors flex items-center gap-2"
+              title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              <span>{theme === 'dark' ? '☀️' : '🌙'}</span>
+              <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+            </button>
             <button
               onClick={fetchData}
               className="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors flex items-center gap-2"
@@ -236,6 +247,11 @@ export default function Dashboard() {
           </div>
         </div>
       </header>
+
+      {/* City Overview - shown when "all" is selected */}
+      {selectedCity === 'all' && selectedManager === 'all' && (
+        <CityOverview data={filteredToday} />
+      )}
 
       {/* Filters */}
       <Filters
