@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { DashboardData, MetricsRow, DoDRow, AggregatedMetrics } from '@/lib/types';
-import { aggregateMetrics, aggregateDoDMetrics, filterByCity, filterByManager, filterDoDByCity, filterDoDByManager } from '@/lib/aggregation';
+import { aggregateMetrics, aggregateDoDMetrics, filterByRegion, filterByCity, filterByManager, filterDoDByRegion, filterDoDByCity, filterDoDByManager } from '@/lib/aggregation';
 import { useTheme } from '@/lib/ThemeContext';
 import Filters from './Filters';
 import CategoryCard from './CategoryCard';
@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState('all');
   const [selectedCity, setSelectedCity] = useState('all');
   const [selectedManager, setSelectedManager] = useState('all');
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
@@ -71,14 +72,17 @@ export default function Dashboard() {
 
   if (!data) return null;
 
-  // Filter data based on selections
-  let filteredPrevious = filterByCity(data.previousDay, selectedCity);
+  // Filter data based on selections (region → city → manager)
+  let filteredPrevious = filterByRegion(data.previousDay, selectedRegion);
+  filteredPrevious = filterByCity(filteredPrevious, selectedCity);
   filteredPrevious = filterByManager(filteredPrevious, selectedManager);
 
-  let filteredToday = filterByCity(data.today, selectedCity);
+  let filteredToday = filterByRegion(data.today, selectedRegion);
+  filteredToday = filterByCity(filteredToday, selectedCity);
   filteredToday = filterByManager(filteredToday, selectedManager);
 
-  let filteredDoD = filterDoDByCity(data.dayOverDay, selectedCity);
+  let filteredDoD = filterDoDByRegion(data.dayOverDay, selectedRegion);
+  filteredDoD = filterDoDByCity(filteredDoD, selectedCity);
   filteredDoD = filterDoDByManager(filteredDoD, selectedManager);
 
   // Aggregate metrics for category cards
@@ -250,8 +254,10 @@ export default function Dashboard() {
       {/* Filters */}
       <Filters
         data={data.today}
+        selectedRegion={selectedRegion}
         selectedCity={selectedCity}
         selectedManager={selectedManager}
+        onRegionChange={setSelectedRegion}
         onCityChange={setSelectedCity}
         onManagerChange={setSelectedManager}
       />

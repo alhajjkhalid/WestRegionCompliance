@@ -1,4 +1,5 @@
 import { MetricsRow, DoDRow, AggregatedMetrics } from './types';
+import { Region, getRegionCities } from './regions';
 
 function parsePercentToNumber(pct: string): number {
   if (!pct) return 0;
@@ -153,4 +154,16 @@ export function filterDoDByCity(rows: DoDRow[], city: string): DoDRow[] {
 export function filterDoDByManager(rows: DoDRow[], manager: string): DoDRow[] {
   if (!manager || manager === 'all') return rows;
   return rows.filter(row => row.manager === manager);
+}
+
+export function filterByRegion(rows: MetricsRow[], region: string): MetricsRow[] {
+  if (!region || region === 'all') return rows;
+  const cities = getRegionCities(region as Region);
+  return rows.filter(row => cities.includes(row.cityName));
+}
+
+export function filterDoDByRegion(rows: DoDRow[], region: string): DoDRow[] {
+  if (!region || region === 'all') return rows;
+  const cities = getRegionCities(region as Region);
+  return rows.filter(row => cities.includes(row.cityName));
 }
