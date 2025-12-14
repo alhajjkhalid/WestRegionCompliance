@@ -3,7 +3,7 @@ export type Region = 'Jeddah' | 'North' | 'South';
 export const REGION_CITY_MAP: Record<Region, string[]> = {
   'Jeddah': ['Jeddah'],
   'North': ['Madinah', 'Yanbu', 'Tabuk'],
-  'South': ['Abha', 'Jazan', 'Najran', 'Makkah', 'Taif'],
+  'South': ['Abha', 'Jazan', 'Najran', 'Makkah', 'Taif', 'Al Taif'],
 };
 
 export const CITY_REGION_MAP: Record<string, Region> = {
@@ -16,6 +16,7 @@ export const CITY_REGION_MAP: Record<string, Region> = {
   'Najran': 'South',
   'Makkah': 'South',
   'Taif': 'South',
+  'Al Taif': 'South',
 };
 
 export function getCityRegion(cityName: string): Region | undefined {
